@@ -1,9 +1,16 @@
+import os
 import spotipy
+from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyOAuth
+
+load_dotenv()
+
+CLIENT_ID = os.getenv("CLIENT_ID")
+CLIENT_SECRET = os.getenv("CLIENT_SECRET")
 
 scope = "playlist-read-private"
 
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id='e9432d9f7c9a4369b2dc8e9cd9490671', client_secret='9a5e227146e24837991d7d7ccaa2d15f', redirect_uri='https://example.com/callback'))
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope, client_id=CLIENT_ID, client_secret=CLIENT_SECRET, redirect_uri='https://example.com/callback'))
 
 playlists = sp.current_user_playlists()
 playlist_ids = [playlist['id'] for playlist in playlists['items']]
